@@ -8,11 +8,15 @@ import { FaGoogle } from 'react-icons/fa'
 const Login = () => {
   const { register, handleSubmit } = useForm()
   const [data, setData] = useState('')
+
+  const handleLogin = (data) => {
+    console.log(data)
+  }
   return (
     <div className="h-[800px] flex justify-center items-center">
       <div className="w-[470px] p-7">
         <h2 className="text-2xl font-bold text-center mb-5 mr-3">Login</h2>
-        <form onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
+        <form onSubmit={handleSubmit(handleLogin)}>
           <div className="form-control w-full">
             <label className="label">
               <span className="label-text font-semibold text-lg">Email</span>

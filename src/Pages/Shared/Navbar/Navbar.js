@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   const menuItems = (
-    <React.Fragment className="flex">
+    <React.Fragment>
       <div className="sm:flex-col">
         <Link to="/" className="mr-14 lg:hover:border-b-2 pb-1">
           Home
