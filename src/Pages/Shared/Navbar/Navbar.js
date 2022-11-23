@@ -9,10 +9,10 @@ const Navbar = () => {
           Home
         </Link>
         <Link to="/about" className="mr-14 lg:hover:border-b-2 pb-1">
-          About
+          About Us
         </Link>
         <Link to="/contact" className="mr-14 lg:hover:border-b-2 pb-1">
-          Contact
+          Contact Us
         </Link>
 
         <Link to="/login" className="mr-14 lg:hover:border-b-2 pb-1">
