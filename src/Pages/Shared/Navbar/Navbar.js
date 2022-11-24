@@ -27,12 +27,21 @@ const Navbar = () => {
           Blogs
         </Link>
         {user?.uid ? (
-          <Link
-            onClick={handleLogOut}
-            className="mr-14 lg:hover:border-b-2 pb-1"
-          >
-            Sign Out
-          </Link>
+          <>
+            <Link
+              onClick={handleLogOut}
+              className="mr-14 lg:hover:border-b-2 pb-1"
+            >
+              Sign Out
+            </Link>
+            <div className="tooltip tooltip-left" data-tip={user?.displayName}>
+              <div className="avatar">
+                <div className="w-7 mr-12  rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                  <img src={user?.photoURL} alt="" />
+                </div>
+              </div>
+            </div>
+          </>
         ) : (
           <Link to="/login" className="mr-14 lg:hover:border-b-2 pb-1">
             Log in

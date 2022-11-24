@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -19,20 +19,25 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
   } = useForm()
-
   const { createUser, googleLogIn, updateUserProfile } = useContext(AuthContext)
-
+  const [signUpError, setSignUpError] = useState('')
   const googleProvider = new GoogleAuthProvider()
 
   const handleSignUp = (data) => {
     console.log(data)
+    setSignUpError('')
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user
         console.log(user)
+        toast('User created successfully')
         handleUpdateUserProfile(data.name, data.image)
+          .then(() => {})
+          .catch((err) => console.error(err))
       })
-      .catch((error) => toast.error(error))
+      .catch((error) => {
+        setSignUpError(error.message)
+      })
   }
 
   const handleUpdateUserProfile = (name, photoURL) => {
@@ -149,6 +154,7 @@ const SignUp = () => {
             value="Sign Up"
             type="submit"
           />
+          {signUpError && <p className="text-red-600">{signUpError.message}</p>}
         </form>
         <p className="mt-7">
           <span>Already have an Account.</span>{' '}
