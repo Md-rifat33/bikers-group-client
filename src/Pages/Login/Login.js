@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,8 +6,11 @@ import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { FaGoogle } from 'react-icons/fa'
 
 const Login = () => {
-  const { register, handleSubmit } = useForm()
-  const [data, setData] = useState('')
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm()
 
   const handleLogin = (data) => {
     console.log(data)
@@ -27,10 +30,13 @@ const Login = () => {
             />
             <input
               type="email"
-              {...register('email')}
+              {...register('email', {
+                required: `Email address is required`,
+              })}
               className="input input-bordered w-full p-8"
               placeholder="email . . . ."
             />
+            {errors?.email && <p>{errors.email?.message}</p>}
           </div>
           <div className="form-control w-full mt-3">
             <label className="label">
@@ -42,10 +48,17 @@ const Login = () => {
             />
             <input
               type="password"
-              {...register('password')}
+              {...register('password', {
+                required: `Password is required`,
+                minLength: {
+                  value: 6,
+                  message: `Password must be 6 characters or longer`,
+                },
+              })}
               className="input input-bordered w-full p-8"
               placeholder="password. . . ."
             />
+            {errors?.password && <p>{errors.password?.message}</p>}
             <label className="label mt-3">
               <Link to="/" className="label-text underline">
                 Forget password
