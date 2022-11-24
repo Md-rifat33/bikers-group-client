@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { FaGoogle } from 'react-icons/fa'
+import { toast } from 'react-toastify'
+import { AuthContext } from '../../Contexts/AuthProvider'
 
 const Login = () => {
   const {
@@ -12,8 +14,20 @@ const Login = () => {
     handleSubmit,
   } = useForm()
 
+  const { signIn } = useContext(AuthContext)
+  const [loginError, setLoginError] = useState('')
+
   const handleLogin = (data) => {
-    console.log(data)
+    setLoginError('')
+    signIn(data.email, data.password)
+      .then((result) => {
+        const user = result.user
+        console.log(user)
+      })
+      .catch((err) => {
+        console.error(err)
+        setLoginError(err.message)
+      })
   }
   return (
     <div className="h-[800px] flex justify-center items-center">
@@ -36,7 +50,7 @@ const Login = () => {
               className="input input-bordered w-full p-8"
               placeholder="email . . . ."
             />
-            {errors?.email && <p>{errors.email?.message}</p>}
+            {errors?.email && <p className="mt-3">{errors.email?.message}</p>}
           </div>
           <div className="form-control w-full mt-3">
             <label className="label">
@@ -71,6 +85,9 @@ const Login = () => {
             value="Login"
             type="submit"
           />
+          <div>
+            {loginError && <p className="text-red-600">{loginError}</p>}
+          </div>
         </form>
         <p className="mt-7">
           <span>New to Biker's Group</span>{' '}

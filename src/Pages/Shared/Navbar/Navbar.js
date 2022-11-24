@@ -1,7 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../../../Contexts/AuthProvider'
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext)
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((err) => console.log(err))
+  }
+
   const menuItems = (
     <React.Fragment>
       <div className="sm:flex-col">
@@ -14,13 +23,21 @@ const Navbar = () => {
         <Link to="/contact" className="mr-14 lg:hover:border-b-2 pb-1">
           Contact Us
         </Link>
-
-        <Link to="/login" className="mr-14 lg:hover:border-b-2 pb-1">
-          Log in
-        </Link>
         <Link to="/blogs" className="mr-14 lg:hover:border-b-2 pb-1">
           Blogs
         </Link>
+        {user?.uid ? (
+          <Link
+            onClick={handleLogOut}
+            className="mr-14 lg:hover:border-b-2 pb-1"
+          >
+            Sign Out
+          </Link>
+        ) : (
+          <Link to="/login" className="mr-14 lg:hover:border-b-2 pb-1">
+            Log in
+          </Link>
+        )}
       </div>
     </React.Fragment>
   )
