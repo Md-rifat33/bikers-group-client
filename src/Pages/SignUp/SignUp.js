@@ -11,6 +11,7 @@ import { FaGoogle } from 'react-icons/fa'
 import { useForm } from 'react-hook-form'
 import { AuthContext } from '../../Contexts/AuthProvider'
 import { toast } from 'react-toastify'
+import { GoogleAuthProvider } from 'firebase/auth'
 
 const SignUp = () => {
   const {
@@ -18,7 +19,11 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
   } = useForm()
-  const { createUser } = useContext(AuthContext)
+
+  const { createUser, googleLogIn } = useContext(AuthContext)
+
+  const googleProvider = new GoogleAuthProvider()
+
   const handleSignUp = (data) => {
     console.log(data)
     createUser(data.email, data.password)
@@ -28,6 +33,18 @@ const SignUp = () => {
       })
       .catch((error) => toast.error(error))
   }
+
+  const handleGoogleSignIn = () => {
+    googleLogIn(googleProvider)
+      .then((result) => {
+        const user = result.user
+        console.log(user)
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+
   return (
     <div className="h-[800px] flex justify-center items-center mb-12">
       <div className="w-[470px] p-7">
@@ -129,7 +146,10 @@ const SignUp = () => {
           </Link>
         </p>
         <div className="divider mt-6 font-bold">OR</div>
-        <button className="btn btn-outline w-full mt-3">
+        <button
+          onClick={handleGoogleSignIn}
+          className="btn btn-outline w-full mt-3"
+        >
           <FaGoogle className="mr-2 font-bold" />
           Continue With Google
         </button>
