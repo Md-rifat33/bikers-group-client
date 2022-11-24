@@ -20,7 +20,7 @@ const SignUp = () => {
     formState: { errors },
   } = useForm()
 
-  const { createUser, googleLogIn } = useContext(AuthContext)
+  const { createUser, googleLogIn, updateUserProfile } = useContext(AuthContext)
 
   const googleProvider = new GoogleAuthProvider()
 
@@ -30,8 +30,19 @@ const SignUp = () => {
       .then((result) => {
         const user = result.user
         console.log(user)
+        handleUpdateUserProfile(data.name, data.image)
       })
       .catch((error) => toast.error(error))
+  }
+
+  const handleUpdateUserProfile = (name, photoURL) => {
+    const profile = {
+      displayName: name,
+      photoURL: photoURL,
+    }
+    updateUserProfile(profile)
+      .then(() => {})
+      .catch((error) => console.error(error))
   }
 
   const handleGoogleSignIn = () => {
