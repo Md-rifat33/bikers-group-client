@@ -6,6 +6,7 @@ import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { FaGoogle } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import { AuthContext } from '../../Contexts/AuthProvider'
+import { GoogleAuthProvider } from 'firebase/auth'
 
 const Login = () => {
   const {
@@ -14,7 +15,7 @@ const Login = () => {
     handleSubmit,
   } = useForm()
 
-  const { signIn } = useContext(AuthContext)
+  const { signIn, googleLogIn } = useContext(AuthContext)
   const [loginError, setLoginError] = useState('')
 
   const handleLogin = (data) => {
@@ -29,6 +30,20 @@ const Login = () => {
         setLoginError(err.message)
       })
   }
+
+  const googleProvider = new GoogleAuthProvider()
+
+  const handleGoogleLogIn = () => {
+    googleLogIn(googleProvider)
+      .then((result) => {
+        const user = result.user
+        console.log(user)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
+
   return (
     <div className="h-[800px] flex justify-center items-center">
       <div className="w-[470px] p-7">
@@ -96,7 +111,10 @@ const Login = () => {
           </Link>
         </p>
         <div className="divider mt-6 font-bold">OR</div>
-        <button className="btn btn-outline w-full mt-3">
+        <button
+          onClick={handleGoogleLogIn}
+          className="btn btn-outline w-full mt-3"
+        >
           <FaGoogle className="mr-2 font-bold" />
           Continue With Google
         </button>
