@@ -16,7 +16,7 @@ const CategoryCollection = () => {
           <CategoryCollectionCard key={i} product={product} setData={setData} />
         ))}
       </div>
-      {data && <BookingModal data={data} />}
+      {data && <BookingModal data={data} setData={setData} />}
     </section>
   )
 }

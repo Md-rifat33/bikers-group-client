@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
+import toast from 'react-hot-toast'
 import { AuthContext } from '../../../Contexts/AuthProvider'
 
-const BookingModal = ({ data }) => {
+const BookingModal = ({ data, setData }) => {
   const { name, resalePrice, location, MobileNumber } = data
   const { user } = useContext(AuthContext)
 
@@ -12,16 +13,29 @@ const BookingModal = ({ data }) => {
     const email = form.userEmail.value
     const productName = form.productName.value
     const number = form.phone_number.value
-    const address = form.address.value
-    console.log(number, address)
+    const location = form.address.value
     const booking = {
+      name,
+      email,
+      productName,
       number,
-      address,
+      location,
     }
-    console.log(booking)
-    if (number.length > 11) {
-      alert(`Phone number must be 11 characters`)
-    }
+    fetch('http://localhost:8000/bookings', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(booking),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        if (data.acknowledged) {
+          setData(null)
+          toast.success('Booking Confirmed')
+        }
+      })
   }
   return (
     <>
