@@ -6,9 +6,9 @@ const DashboardLayout = () => {
   return (
     <div>
       <Navbar />
-      <div className="drawers drawer-mobile">
+      <div className="drawer drawer-mobile">
         <input
-          id="dashboard-drawer"
+          id="dashboard_drawer"
           type="checkbox"
           className="drawer-toggle"
         />
@@ -16,8 +16,8 @@ const DashboardLayout = () => {
           <Outlet />
         </div>
         <div className="drawer-side">
-          <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80  text-base-content">
+          <label htmlFor="dashboard_drawer" className="drawer-overlay"></label>
+          <ul className="menu p-4 w-80 bg-base-100 text-base-content">
             <li>
               <a>Sidebar Item 1</a>
             </li>
