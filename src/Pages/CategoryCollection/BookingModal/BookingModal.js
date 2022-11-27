@@ -34,6 +34,8 @@ const BookingModal = ({ data, setData }) => {
         if (data.acknowledged) {
           setData(null)
           toast.success('Booking Confirmed')
+        } else {
+          toast.error(data.message)
         }
       })
   }
@@ -90,12 +92,14 @@ const BookingModal = ({ data, setData }) => {
               name="phone_number"
               placeholder="Your phone Number. . . "
               className="input input-bordered w-full mb-4 p-6"
+              required
             />
             <input
               type="text"
               name="address"
               placeholder="Enter you location. . ."
               className="input input-bordered w-full p-6"
+              required
             />
             <br />
 

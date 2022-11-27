@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faEnvelope,
@@ -22,6 +22,9 @@ const SignUp = () => {
   const { createUser, googleLogIn, updateUserProfile } = useContext(AuthContext)
   const [signUpError, setSignUpError] = useState('')
   const googleProvider = new GoogleAuthProvider()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const from = location.state?.from?.pathname || '/'
 
   const handleSignUp = (data) => {
     console.log(data)
@@ -34,6 +37,7 @@ const SignUp = () => {
         handleUpdateUserProfile(data.name, data.image)
           .then(() => {})
           .catch((err) => console.error(err))
+        navigate(from, { replace: true })
       })
       .catch((error) => {
         setSignUpError(error.message)
@@ -55,6 +59,7 @@ const SignUp = () => {
       .then((result) => {
         const user = result.user
         console.log(user)
+        navigate(from, { replace: true })
       })
       .catch((err) => {
         console.error(err)
