@@ -4,7 +4,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 import { FaGoogle } from 'react-icons/fa'
-import { toast } from 'react-toastify'
 import { AuthContext } from '../../Contexts/AuthProvider'
 import { GoogleAuthProvider } from 'firebase/auth'
 

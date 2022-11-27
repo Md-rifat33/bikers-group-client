@@ -28,6 +28,9 @@ const Navbar = () => {
         </Link>
         {user?.uid ? (
           <>
+            <Link to="/dashboard" className="mr-14 lg:hover:border-b-2 pb-1">
+              Dashboard
+            </Link>
             <Link
               onClick={handleLogOut}
               className="mr-14 lg:hover:border-b-2 pb-1"

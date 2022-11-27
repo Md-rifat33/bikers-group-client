@@ -1,7 +1,6 @@
 import React from 'react'
 
-const CategoryCollectionCard = ({ product }) => {
-  console.log(product)
+const CategoryCollectionCard = ({ product, setData }) => {
   const {
     name,
     location,
@@ -11,6 +10,7 @@ const CategoryCollectionCard = ({ product }) => {
     sellerName,
     time,
     used,
+    MobileNumber,
   } = product
   return (
     <div className="w-full">
@@ -29,10 +29,15 @@ const CategoryCollectionCard = ({ product }) => {
             <p className="font-semibold">Resell Price : {resalePrice} Taka</p>
             <p className="font-semibold">Used Time : {used}</p>
             <p className="font-semibold"> Post Time : {time}</p>
+            <p className="font-semibold">Phone : {MobileNumber}</p>
             <div className="card-actions justify-end  mt-5">
-              <button className="btn btn-primary w-40 text-slate-300">
+              <label
+                htmlFor="booking_modal"
+                className="btn btn-primary w-40 text-slate-300"
+                onClick={() => setData(product)}
+              >
                 Book Now
-              </button>
+              </label>
             </div>
           </div>
         </div>
