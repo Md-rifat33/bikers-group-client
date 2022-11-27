@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { AuthContext } from '../../../Contexts/AuthProvider'
+import styled from 'daisyui/dist/styled'
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext)
@@ -31,11 +32,24 @@ const MyOrders = () => {
           </thead>
           <tbody>
             {bookings.map((booking, i) => (
-              <tr>
+              <tr key={booking._id}>
                 <th>{i + 1}</th>
-                <td>Cy Ganderton</td>
-                <td>Quality Control Specialist</td>
-                <td>Blue</td>
+                <td>
+                  <img
+                    src={booking.productImage}
+                    alt=""
+                    style={{
+                      width: '40px',
+                      heigth: '20px',
+                      borderRadius: '5px',
+                    }}
+                  />
+                </td>
+                <td>{booking.productName}</td>
+                <td>{booking.resellPrice}</td>
+                <td>
+                  <button className="btn btn-primary w-20">Pay</button>
+                </td>
               </tr>
             ))}
           </tbody>
