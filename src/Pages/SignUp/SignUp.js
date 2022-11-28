@@ -21,26 +21,43 @@ const SignUp = () => {
   } = useForm()
   const { createUser, googleLogIn, updateUserProfile } = useContext(AuthContext)
   const [signUpError, setSignUpError] = useState('')
+  const [createdUserEmail, setCreatedUserEmail] = useState('')
   const googleProvider = new GoogleAuthProvider()
   const navigate = useNavigate()
   const location = useLocation()
   const from = location.state?.from?.pathname || '/'
 
   const handleSignUp = (data) => {
-    console.log(data)
     setSignUpError('')
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user
         console.log(user)
-        toast('User created successfully')
+        toast.success('User created successfully')
+        navigate('/')
         handleUpdateUserProfile(data.name, data.image)
-          .then(() => {})
+          .then(() => {
+            saveUser(data.name, data.email)
+          })
           .catch((err) => console.error(err))
-        navigate(from, { replace: true })
       })
       .catch((error) => {
         setSignUpError(error.message)
+      })
+  }
+
+  const saveUser = (name, email) => {
+    const user = { name, email }
+    fetch(`https://bikers-group-server.vercel.app/users`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setCreatedUserEmail(email)
       })
   }
 

@@ -1,11 +1,10 @@
 import React, { useContext } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { AuthContext } from '../../../Contexts/AuthProvider'
-import styled from 'daisyui/dist/styled'
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext)
-  const url = `http://localhost:8000/bookings?email=${user?.email}`
+  const url = `https://bikers-group-server.vercel.app/bookings?email=${user?.email}`
 
   const { data: bookings = [] } = useQuery({
     queryKey: ['bookings', user?.email],

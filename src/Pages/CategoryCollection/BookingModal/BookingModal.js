@@ -27,7 +27,7 @@ const BookingModal = ({ data, setData }) => {
       resellPrice,
     }
     console.log(booking)
-    fetch('http://localhost:8000/bookings', {
+    fetch('https://bikers-group-server.vercel.app/bookings', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',

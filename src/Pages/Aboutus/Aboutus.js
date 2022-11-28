@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Banner = () => {
+const Aboutus = () => {
   return (
     <div
       className="hero min-h-[60vh] bg-cover bg-no-repeat mt-5 mb-7"
@@ -29,4 +29,4 @@ const Banner = () => {
   )
 }
 
-export default Banner
+export default Aboutus
