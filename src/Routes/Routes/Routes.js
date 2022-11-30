@@ -52,6 +52,7 @@ export const router = createBrowserRouter([
       {
         path: '/about',
         element: <Aboutus />,
+        loader: () => fetch('https://bikers-group-server.vercel.app/reviews'),
       },
       {
         path: '*',
