@@ -156,15 +156,6 @@ const SignUp = () => {
               type="password"
               {...register('password', {
                 required: 'Password is required',
-                minLength: {
-                  value: 6,
-                  message:
-                    'Password must be 6 characters long and must have uppercase letters,number and special characters',
-                },
-                pattern: {
-                  value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/,
-                  message: 'Password must be strong',
-                },
               })}
               className="input input-bordered w-full p-8"
               placeholder="password. . . ."
